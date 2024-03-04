@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="menu_in_config_dock" parent="stock.menu_stock_root" action="stock_transport.stock_dock_action" name="Docks"/>
+
+</odoo>

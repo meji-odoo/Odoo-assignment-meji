@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_batch_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form.inherit</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="dock_id" />
+                <field name="vehical" placeholder="Third Party Provider"/>
+                <field name="vehical_category" placeholder="eg. Semi Truck"/>
+                <field name="weight" invisible="not vehical_category" widget="progressbar"/>
+                <field name="volume" invisible="not vehical_category" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_view_graph" model="ir.ui.view">
+        <field name="name">stock.picking.batch.view.graph</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <graph string="Batch Picking" sample="1">
+                <field name="scheduled_date" interval="day"/>
+                <field name="vehical_category"/>
+                <field name="weight"/>
+                <field name="volume"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_view_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.batch.view.gantt</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <gantt string="Batch Picking" date_start="scheduled_date" date_stop="scheduled_date" default_group_by="dock_id,vehical" default_scale="week" color="id" decoration-info="state == 'draft'">
+                <field name="state" />
+            </gantt>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,graph,gantt</field>
+    </record>
+
+</odoo>
